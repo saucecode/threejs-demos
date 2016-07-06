@@ -9,8 +9,10 @@ function init(){
 	// A Mesh is made up of a geometry and a material.
 	// Materials affect how the geometry looks, especially under lights.
 	mesh = new THREE.Mesh(
-		new THREE.BoxGeometry(1,1,1),
-		new THREE.MeshBasicMaterial({color:0xff4444, wireframe:true})
+		new THREE.BoxGeometry(1,1,1), // width, height, depth
+		new THREE.MeshBasicMaterial({color:0xff4444, wireframe:true}) // Color is given in hexadecimal RGB
+		// 0xff0000 is pure red, 0x00ff00 is pure green, and 0x0000ff is pure blue.
+		// white would be 0xffffff and black would be 0x000000.
 	);
 	
 	// Add the mesh to the scene.
