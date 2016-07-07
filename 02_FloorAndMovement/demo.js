@@ -13,14 +13,14 @@ function init(){
 		new THREE.BoxGeometry(1,1,1),
 		new THREE.MeshBasicMaterial({color:0xff4444, wireframe:USE_WIREFRAME})
 	);
-	mesh.position.y += 1;
+	mesh.position.y += 1; // Move the mesh up 1 meter
 	scene.add(mesh);
 	
 	meshFloor = new THREE.Mesh(
 		new THREE.PlaneGeometry(10,10, 10,10),
 		new THREE.MeshBasicMaterial({color:0xffffff, wireframe:USE_WIREFRAME})
 	);
-	meshFloor.rotation.x -= Math.PI / 2;
+	meshFloor.rotation.x -= Math.PI / 2; // Rotate the floor 90 degrees
 	scene.add(meshFloor);
 	
 	camera.position.set(0, player.height, -5);
@@ -39,6 +39,7 @@ function animate(){
 	mesh.rotation.x += 0.01;
 	mesh.rotation.y += 0.02;
 	
+	// Keyboard movement inputs
 	if(keyboard[87]){ // W key
 		camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
 		camera.position.z -= -Math.cos(camera.rotation.y) * player.speed;
@@ -48,6 +49,7 @@ function animate(){
 		camera.position.z += -Math.cos(camera.rotation.y) * player.speed;
 	}
 	if(keyboard[65]){ // A key
+		// Redirect motion by 90 degrees
 		camera.position.x += Math.sin(camera.rotation.y + Math.PI/2) * player.speed;
 		camera.position.z += -Math.cos(camera.rotation.y + Math.PI/2) * player.speed;
 	}
@@ -56,6 +58,7 @@ function animate(){
 		camera.position.z += -Math.cos(camera.rotation.y - Math.PI/2) * player.speed;
 	}
 	
+	// Keyboard turn inputs
 	if(keyboard[37]){ // left arrow key
 		camera.rotation.y -= player.turnSpeed;
 	}
