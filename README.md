@@ -5,6 +5,6 @@
 
 TODO
 
- - Light and Shadow
+ - Light and Shadow [[Live Demo]](http://insecure.gq/webgl/lightandshadow/)
  - Textures and Sprites
  - Model loading
