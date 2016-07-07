@@ -14,34 +14,43 @@ function init(){
 		new THREE.MeshPhongMaterial({color:0xff4444, wireframe:USE_WIREFRAME})
 	);
 	mesh.position.y += 1;
+	// The cube can have shadows cast onto it, and it can cast shadows
 	mesh.receiveShadow = true;
 	mesh.castShadow = true;
 	scene.add(mesh);
 	
 	meshFloor = new THREE.Mesh(
 		new THREE.PlaneGeometry(10,10, 10,10),
+		// MeshBasicMaterial does not react to lighting, so we replace with MeshPhongMaterial
 		new THREE.MeshPhongMaterial({color:0xffffff, wireframe:USE_WIREFRAME})
+		// See threejs.org/examples/ for other material types
 	);
 	meshFloor.rotation.x -= Math.PI / 2;
+	// Floor can have shadows cast onto it
 	meshFloor.receiveShadow = true;
 	scene.add(meshFloor);
 	
+	
+	// LIGHTS
 	ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
 	scene.add(ambientLight);
 	
 	light = new THREE.PointLight(0xffffff, 0.8, 18);
 	light.position.set(-3,6,-3);
 	light.castShadow = true;
+	// Will not light anything closer than 0.1 units or further than 25 units
 	light.shadow.camera.near = 0.1;
 	light.shadow.camera.far = 25;
 	scene.add(light);
+	
 	
 	camera.position.set(0, player.height, -5);
 	camera.lookAt(new THREE.Vector3(0,player.height,0));
 	
 	renderer = new THREE.WebGLRenderer();
 	renderer.setSize(1280, 720);
-
+	
+	// Enable Shadows in the Renderer
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.BasicShadowMap;
 	
