@@ -8,5 +8,5 @@ These demos use the [three.js](https://github.com/mrdoob/three.js/) 3D library.
 
 TODO
 
- - Textures and Sprites
+ - Textures [[Live Demo]](http://insecure.gq/webgl/textures/)
  - Model loading
