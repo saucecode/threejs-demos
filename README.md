@@ -10,3 +10,4 @@ These demos use the [three.js](https://github.com/mrdoob/three.js/) 3D library.
 TODO
 
  - Model loading
+ - Pre-loading resources
