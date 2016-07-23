@@ -58,6 +58,30 @@ function init(){
 	crate.receiveShadow = true;
 	crate.castShadow = true;
 	
+	// Model/material loading!
+	var mtlLoader = new THREE.MTLLoader();
+	mtlLoader.load("models/Tent_Poles_01.mtl", function(materials){
+		
+		materials.preload();
+		var objLoader = new THREE.OBJLoader();
+		objLoader.setMaterials(materials);
+		
+		objLoader.load("models/Tent_Poles_01.obj", function(mesh){
+		
+			mesh.traverse(function(node){
+				if( node instanceof THREE.Mesh ){
+					node.castShadow = true;
+					node.receiveShadow = true;
+				}
+			});
+		
+			scene.add(mesh);
+			mesh.position.set(-5, 0, 4);
+			mesh.rotation.y = -Math.PI/4;
+		});
+		
+	});
+	
 	
 	camera.position.set(0, player.height, -5);
 	camera.lookAt(new THREE.Vector3(0,player.height,0));
