@@ -39,15 +39,18 @@ function init(){
 	scene.add(light);
 	
 	
+	// Texture Loading
 	var textureLoader = new THREE.TextureLoader();
 	crateTexture = textureLoader.load("crate0/crate0_diffuse.png");
 	crateBumpMap = textureLoader.load("crate0/crate0_bump.png");
 	crateNormalMap = textureLoader.load("crate0/crate0_normal.png");
 	
+	// Create mesh with these textures
 	crate = new THREE.Mesh(
 		new THREE.BoxGeometry(3,3,3),
 		new THREE.MeshPhongMaterial({
 			color:0xffffff,
+			
 			map:crateTexture,
 			bumpMap:crateBumpMap,
 			normalMap:crateNormalMap
