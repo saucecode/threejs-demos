@@ -7,6 +7,7 @@ var keyboard = {};
 var player = { height:1.8, speed:0.2, turnSpeed:Math.PI*0.02 };
 var USE_WIREFRAME = false;
 
+// An object to hold all the things needed for our loading screen
 var loadingScreen = {
 	scene: new THREE.Scene(),
 	camera: new THREE.PerspectiveCamera(90, 1280/720, 0.1, 100),
@@ -23,10 +24,14 @@ function init(){
 	camera = new THREE.PerspectiveCamera(90, 1280/720, 0.1, 1000);
 	
 	
+	// Set up the loading screen's scene.
+	// It can be treated just like our main scene.
 	loadingScreen.box.position.set(0,0,5);
 	loadingScreen.camera.lookAt(loadingScreen.box.position);
 	loadingScreen.scene.add(loadingScreen.box);
 	
+	// Create a loading manager to set RESOURCES_LOADED when appropriate.
+	// Pass loadingManager to all resource loaders.
 	loadingManager = new THREE.LoadingManager();
 	
 	loadingManager.onProgress = function(item, loaded, total){
@@ -86,7 +91,6 @@ function init(){
 	crate.receiveShadow = true;
 	crate.castShadow = true;
 	
-	// Model/material loading!
 	var mtlLoader = new THREE.MTLLoader(loadingManager);
 	mtlLoader.load("models/Tent_Poles_01.mtl", function(materials){
 		
@@ -127,6 +131,7 @@ function init(){
 
 function animate(){
 
+	// This block runs while resources are loading.
 	if( RESOURCES_LOADED == false ){
 		requestAnimationFrame(animate);
 		
@@ -135,7 +140,7 @@ function animate(){
 		loadingScreen.box.position.y = Math.sin(loadingScreen.box.position.x);
 		
 		renderer.render(loadingScreen.scene, loadingScreen.camera);
-		return;
+		return; // Stop the function here.
 	}
 
 	requestAnimationFrame(animate);
