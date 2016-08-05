@@ -7,9 +7,37 @@ var keyboard = {};
 var player = { height:1.8, speed:0.2, turnSpeed:Math.PI*0.02 };
 var USE_WIREFRAME = false;
 
+var loadingScreen = {
+	scene: new THREE.Scene(),
+	camera: new THREE.PerspectiveCamera(90, 1280/720, 0.1, 100),
+	box: new THREE.Mesh(
+		new THREE.BoxGeometry(0.5,0.5,0.5),
+		new THREE.MeshBasicMaterial({ color:0x4444ff })
+	)
+};
+var LOADING_MANAGER = null;
+var RESOURCES_LOADED = false;
+
 function init(){
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(90, 1280/720, 0.1, 1000);
+	
+	
+	loadingScreen.box.position.set(0,0,5);
+	loadingScreen.camera.lookAt(loadingScreen.box.position);
+	loadingScreen.scene.add(loadingScreen.box);
+	
+	loadingManager = new THREE.LoadingManager();
+	
+	loadingManager.onProgress = function(item, loaded, total){
+		console.log(item, loaded, total);
+	};
+	
+	loadingManager.onLoad = function(){
+		console.log("loaded all resources");
+		RESOURCES_LOADED = true;
+	};
+	
 	
 	mesh = new THREE.Mesh(
 		new THREE.BoxGeometry(1,1,1),
@@ -39,7 +67,7 @@ function init(){
 	scene.add(light);
 	
 	
-	var textureLoader = new THREE.TextureLoader();
+	var textureLoader = new THREE.TextureLoader(loadingManager);
 	crateTexture = textureLoader.load("crate0/crate0_diffuse.jpg");
 	crateBumpMap = textureLoader.load("crate0/crate0_bump.jpg");
 	crateNormalMap = textureLoader.load("crate0/crate0_normal.jpg");
@@ -59,11 +87,11 @@ function init(){
 	crate.castShadow = true;
 	
 	// Model/material loading!
-	var mtlLoader = new THREE.MTLLoader();
+	var mtlLoader = new THREE.MTLLoader(loadingManager);
 	mtlLoader.load("models/Tent_Poles_01.mtl", function(materials){
 		
 		materials.preload();
-		var objLoader = new THREE.OBJLoader();
+		var objLoader = new THREE.OBJLoader(loadingManager);
 		objLoader.setMaterials(materials);
 		
 		objLoader.load("models/Tent_Poles_01.obj", function(mesh){
@@ -98,6 +126,18 @@ function init(){
 }
 
 function animate(){
+
+	if( RESOURCES_LOADED == false ){
+		requestAnimationFrame(animate);
+		
+		loadingScreen.box.position.x -= 0.05;
+		if( loadingScreen.box.position.x < -10 ) loadingScreen.box.position.x = 10;
+		loadingScreen.box.position.y = Math.sin(loadingScreen.box.position.x);
+		
+		renderer.render(loadingScreen.scene, loadingScreen.camera);
+		return;
+	}
+
 	requestAnimationFrame(animate);
 	
 	mesh.rotation.x += 0.01;
