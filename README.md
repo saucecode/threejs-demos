@@ -7,7 +7,7 @@ These demos use the [three.js](https://github.com/mrdoob/three.js/) 3D library, 
  - **Light and Shadow** [[Youtube]](https://www.youtube.com/watch?v=zBfpb32tys8) [[Live Demo]](http://insecure.gq/webgl/lightandshadow/)
  - **Textures, Normal & Bump Maps** [[YouTube]](https://www.youtube.com/watch?v=VdnN5nuxj-s) [[Live Demo]](http://insecure.gq/webgl/textures/)
  - **Model/Material Loading** [[YouTube]](https://www.youtube.com/watch?v=q2dhg1e8kpw) [[Live Demo]](http://insecure.gq/webgl/models/)
- - **Basic Loading Screen** [[Live Demo]](http://insecure.gq/webgl2/06_Loading/index.html)
+ - **Basic Loading Screen** [[YouTube]](https://www.youtube.com/watch?v=3umV-dEYttU) [[Live Demo]](http://insecure.gq/webgl2/06_Loading/index.html)
 
 TODO
 
