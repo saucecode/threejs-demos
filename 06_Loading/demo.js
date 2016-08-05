@@ -16,7 +16,7 @@ var loadingScreen = {
 		new THREE.MeshBasicMaterial({ color:0x4444ff })
 	)
 };
-var LOADING_MANAGER = null;
+var loadingManager = null;
 var RESOURCES_LOADED = false;
 
 function init(){
