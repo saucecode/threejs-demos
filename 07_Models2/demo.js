@@ -18,6 +18,29 @@ var loadingScreen = {
 var loadingManager = null;
 var RESOURCES_LOADED = false;
 
+// Models index
+var models = {
+	tent: {
+		obj:"models/Tent_Poles_01.obj",
+		mtl:"models/Tent_Poles_01.mtl",
+		mesh: null
+	},
+	campfire: {
+		obj:"models/Campfire_01.obj",
+		mtl:"models/Campfire_01.mtl",
+		mesh: null
+	},
+	pirateship: {
+		obj:"models/Pirateship.obj",
+		mtl:"models/Pirateship.mtl",
+		mesh: null
+	}
+};
+
+// Meshes index
+var meshes = {};
+
+
 function init(){
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(90, 1280/720, 0.1, 1000);
@@ -34,6 +57,7 @@ function init(){
 	loadingManager.onLoad = function(){
 		console.log("loaded all resources");
 		RESOURCES_LOADED = true;
+		onResourcesLoaded();
 	};
 	
 	
@@ -85,28 +109,37 @@ function init(){
 	crate.receiveShadow = true;
 	crate.castShadow = true;
 	
-	var mtlLoader = new THREE.MTLLoader(loadingManager);
-	mtlLoader.load("models/Tent_Poles_01.mtl", function(materials){
-		
-		materials.preload();
-		var objLoader = new THREE.OBJLoader(loadingManager);
-		objLoader.setMaterials(materials);
-		
-		objLoader.load("models/Tent_Poles_01.obj", function(mesh){
-		
-			mesh.traverse(function(node){
-				if( node instanceof THREE.Mesh ){
-					node.castShadow = true;
-					node.receiveShadow = true;
-				}
+	// Load models
+	// REMEMBER: Loading in Javascript is asynchronous, so you need
+	// to wrap the code in a function and pass it the index. If you
+	// don't, then the index '_key' can change while the model is being
+	// downloaded, and so the wrong model will be matched with the wrong
+	// index key.
+	for( var _key in models ){
+		(function(key){
+			
+			var mtlLoader = new THREE.MTLLoader(loadingManager);
+			mtlLoader.load(models[key].mtl, function(materials){
+				materials.preload();
+				
+				var objLoader = new THREE.OBJLoader(loadingManager);
+				
+				objLoader.setMaterials(materials);
+				objLoader.load(models[key].obj, function(mesh){
+					
+					mesh.traverse(function(node){
+						if( node instanceof THREE.Mesh ){
+							node.castShadow = true;
+							node.receiveShadow = true;
+						}
+					});
+					models[key].mesh = mesh;
+					
+				});
 			});
-		
-			scene.add(mesh);
-			mesh.position.set(-5, 0, 4);
-			mesh.rotation.y = -Math.PI/4;
-		});
-		
-	});
+			
+		})(_key);
+	}
 	
 	
 	camera.position.set(0, player.height, -5);
@@ -123,8 +156,37 @@ function init(){
 	animate();
 }
 
+// Runs when all resources are loaded
+function onResourcesLoaded(){
+	
+	// Clone models into meshes.
+	meshes["tent1"] = models.tent.mesh.clone();
+	meshes["tent2"] = models.tent.mesh.clone();
+	meshes["campfire1"] = models.campfire.mesh.clone();
+	meshes["campfire2"] = models.campfire.mesh.clone();
+	meshes["pirateship"] = models.pirateship.mesh.clone();
+	
+	// Reposition individual meshes, then add meshes to scene
+	meshes["tent1"].position.set(-5, 0, 4);
+	scene.add(meshes["tent1"]);
+	
+	meshes["tent2"].position.set(-8, 0, 4);
+	scene.add(meshes["tent2"]);
+	
+	meshes["campfire1"].position.set(-5, 0, 1);
+	meshes["campfire2"].position.set(-8, 0, 1);
+	
+	scene.add(meshes["campfire1"]);
+	scene.add(meshes["campfire2"]);
+	
+	meshes["pirateship"].position.set(-11, -1, 1);
+	meshes["pirateship"].rotation.set(0, Math.PI, 0); // Rotate it to face the other way.
+	scene.add(meshes["pirateship"]);
+}
+
 function animate(){
 
+	// Play the loading screen until resources are loaded.
 	if( RESOURCES_LOADED == false ){
 		requestAnimationFrame(animate);
 		
@@ -141,6 +203,8 @@ function animate(){
 	mesh.rotation.x += 0.01;
 	mesh.rotation.y += 0.02;
 	crate.rotation.y += 0.01;
+	// Uncomment for absurdity!
+	// meshes["pirateship"].rotation.z += 0.01;
 	
 	if(keyboard[87]){ // W key
 		camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
@@ -181,3 +245,4 @@ window.addEventListener('keydown', keyDown);
 window.addEventListener('keyup', keyUp);
 
 window.onload = init;
+
