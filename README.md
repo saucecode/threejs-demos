@@ -11,6 +11,6 @@ These demos use the [three.js](https://github.com/mrdoob/three.js/) 3D library, 
 
 TODO
 
- - Multiple-model loading
+ - Multiple Models & Instancing [[Live Demo]](http://insecure.gq/webgl2/07_Models2/index.html)
  - FPS gun
  - Sprites/Billboarding
