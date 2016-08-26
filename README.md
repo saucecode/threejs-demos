@@ -11,9 +11,12 @@ I'm documenting the process I went through/am going through in using threejs by 
  - **Model/Material Loading** [[YouTube]](https://www.youtube.com/watch?v=q2dhg1e8kpw) [[Live Demo]](http://insecure.gq/webgl/models/)
  - **Basic Loading Screen** [[YouTube]](https://www.youtube.com/watch?v=3umV-dEYttU) [[Live Demo]](http://insecure.gq/webgl2/06_Loading/index.html)
  - **Multiple Models & Instancing** [[YouTube]](https://www.youtube.com/watch?v=MJAD-EXPXfU) [[Live Demo]](http://insecure.gq/webgl2/07_Models2/index.html)
+ - FPS Gun View [[Live Demo]](http://insecure.gq/webgl2/08_GunView/index.html)
 
 TODO
 
- - FPS gun
+ - FPS gun (recorded, not yet edited)
+ - Shooting bullets
  - Sprites/Billboarding
  - Mouselook / Pointer Lock
+ - Third Person View
