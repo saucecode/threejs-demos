@@ -230,6 +230,8 @@ function animate(){
 	// Uncomment for absurdity!
 	// meshes["pirateship"].rotation.z += 0.01;
 	
+	// go through bullets array and update position
+	// remove bullets when appropriate
 	for(var index=0; index<bullets.length; index+=1){
 		if( bullets[index] === undefined ) continue;
 		if( bullets[index].alive == false ){
@@ -264,7 +266,9 @@ function animate(){
 		camera.rotation.y += player.turnSpeed;
 	}
 	
+	// shoot a bullet
 	if(keyboard[32] && player.canShoot <= 0){ // spacebar key
+		// creates a bullet as a Mesh object
 		var bullet = new THREE.Mesh(
 			new THREE.SphereGeometry(0.05,8,8),
 			new THREE.MeshBasicMaterial({color:0xffffff})
@@ -272,24 +276,30 @@ function animate(){
 		// this is silly.
 		// var bullet = models.pirateship.mesh.clone();
 		
+		// position the bullet to come from the player's weapon
 		bullet.position.set(
 			meshes["playerweapon"].position.x,
 			meshes["playerweapon"].position.y + 0.15,
 			meshes["playerweapon"].position.z
 		);
 		
+		// set the velocity of the bullet
 		bullet.velocity = new THREE.Vector3(
 			-Math.sin(camera.rotation.y),
 			0,
 			Math.cos(camera.rotation.y)
 		);
 		
+		// after 1000ms, set alive to false and remove from scene
+		// setting alive to false flags our update code to remove
+		// the bullet from the bullets array
 		bullet.alive = true;
 		setTimeout(function(){
 			bullet.alive = false;
 			scene.remove(bullet);
 		}, 1000);
 		
+		// add to scene, array, and set the delay to 10 frames
 		bullets.push(bullet);
 		scene.add(bullet);
 		player.canShoot = 10;
