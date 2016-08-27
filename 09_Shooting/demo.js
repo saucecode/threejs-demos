@@ -4,7 +4,7 @@ var meshFloor, ambientLight, light;
 var crate, crateTexture, crateNormalMap, crateBumpMap;
 
 var keyboard = {};
-var player = { height:1.8, speed:0.2, turnSpeed:Math.PI*0.02 };
+var player = { height:1.8, speed:0.2, turnSpeed:Math.PI*0.02, canShoot:0 };
 var USE_WIREFRAME = false;
 
 var loadingScreen = {
@@ -46,6 +46,8 @@ var models = {
 // Meshes index
 var meshes = {};
 
+// Bullets array
+var bullets = [];
 
 function init(){
 	scene = new THREE.Scene();
@@ -228,6 +230,16 @@ function animate(){
 	// Uncomment for absurdity!
 	// meshes["pirateship"].rotation.z += 0.01;
 	
+	for(var index=0; index<bullets.length; index+=1){
+		if( bullets[index] === undefined ) continue;
+		if( bullets[index].alive == false ){
+			bullets.splice(index,1);
+			continue;
+		}
+		
+		bullets[index].position.add(bullets[index].velocity);
+	}
+	
 	if(keyboard[87]){ // W key
 		camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
 		camera.position.z -= -Math.cos(camera.rotation.y) * player.speed;
@@ -252,6 +264,37 @@ function animate(){
 		camera.rotation.y += player.turnSpeed;
 	}
 	
+	if(keyboard[32] && player.canShoot <= 0){ // spacebar key
+		var bullet = new THREE.Mesh(
+			new THREE.SphereGeometry(0.05,8,8),
+			new THREE.MeshBasicMaterial({color:0xffffff})
+		);
+		// this is silly.
+		// var bullet = models.pirateship.mesh.clone();
+		
+		bullet.position.set(
+			meshes["playerweapon"].position.x,
+			meshes["playerweapon"].position.y + 0.15,
+			meshes["playerweapon"].position.z
+		);
+		
+		bullet.velocity = new THREE.Vector3(
+			-Math.sin(camera.rotation.y),
+			0,
+			Math.cos(camera.rotation.y)
+		);
+		
+		bullet.alive = true;
+		setTimeout(function(){
+			bullet.alive = false;
+			scene.remove(bullet);
+		}, 1000);
+		
+		bullets.push(bullet);
+		scene.add(bullet);
+		player.canShoot = 10;
+	}
+	if(player.canShoot > 0) player.canShoot -= 1;
 	
 	// position the gun in front of the camera
 	meshes["playerweapon"].position.set(
