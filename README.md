@@ -4,15 +4,15 @@ These demos use the [three.js](https://github.com/mrdoob/three.js/) 3D library, 
 
 I'm documenting the process I went through/am going through in using threejs by doing an incremental video series. The results produced in each video are also available in the links below.
 
- - **Getting Started** [[YouTube]](https://www.youtube.com/watch?v=axGQAMqsxdw) [[Live Demo]](http://insecure.gq/webgl/gettingstarted/)
- - **Floor Space and Movement** [[YouTube]](https://www.youtube.com/watch?v=UUilwGxIj_Q) [[Live Demo]](http://insecure.gq/webgl/floorsandmovement/)
- - **Light and Shadow** [[Youtube]](https://www.youtube.com/watch?v=zBfpb32tys8) [[Live Demo]](http://insecure.gq/webgl/lightandshadow/)
- - **Textures, Normal & Bump Maps** [[YouTube]](https://www.youtube.com/watch?v=VdnN5nuxj-s) [[Live Demo]](http://insecure.gq/webgl/textures/)
- - **Model/Material Loading** [[YouTube]](https://www.youtube.com/watch?v=q2dhg1e8kpw) [[Live Demo]](http://insecure.gq/webgl/models/)
- - **Basic Loading Screen** [[YouTube]](https://www.youtube.com/watch?v=3umV-dEYttU) [[Live Demo]](http://insecure.gq/webgl2/06_Loading/index.html)
- - **Multiple Models & Instancing** [[YouTube]](https://www.youtube.com/watch?v=MJAD-EXPXfU) [[Live Demo]](http://insecure.gq/webgl2/07_Models2/index.html)
- - **FPS Gun View** [[YouTube]](https://www.youtube.com/watch?v=9wSWaKRtVy4) [[Live Demo]](http://insecure.gq/webgl2/08_GunView/index.html)
- - **Shooting & Projectiles** [[YouTube]](https://www.youtube.com/watch?v=nsg0qFu3aso) [[Live Demo]](http://insecure.gq/webgl2/09_Shooting/index.html)
+ - **Getting Started** [[YouTube]](https://www.youtube.com/watch?v=axGQAMqsxdw) [[Live Demo]](http://insecure.ga/webgl/gettingstarted/)
+ - **Floor Space and Movement** [[YouTube]](https://www.youtube.com/watch?v=UUilwGxIj_Q) [[Live Demo]](http://insecure.ga/webgl/floorsandmovement/)
+ - **Light and Shadow** [[Youtube]](https://www.youtube.com/watch?v=zBfpb32tys8) [[Live Demo]](http://insecure.ga/webgl/lightandshadow/)
+ - **Textures, Normal & Bump Maps** [[YouTube]](https://www.youtube.com/watch?v=VdnN5nuxj-s) [[Live Demo]](http://insecure.ga/webgl/textures/)
+ - **Model/Material Loading** [[YouTube]](https://www.youtube.com/watch?v=q2dhg1e8kpw) [[Live Demo]](http://insecure.ga/webgl/models/)
+ - **Basic Loading Screen** [[YouTube]](https://www.youtube.com/watch?v=3umV-dEYttU) [[Live Demo]](http://insecure.ga/webgl2/06_Loading/index.html)
+ - **Multiple Models & Instancing** [[YouTube]](https://www.youtube.com/watch?v=MJAD-EXPXfU) [[Live Demo]](http://insecure.ga/webgl2/07_Models2/index.html)
+ - **FPS Gun View** [[YouTube]](https://www.youtube.com/watch?v=9wSWaKRtVy4) [[Live Demo]](http://insecure.ga/webgl2/08_GunView/index.html)
+ - **Shooting & Projectiles** [[YouTube]](https://www.youtube.com/watch?v=nsg0qFu3aso) [[Live Demo]](http://insecure.ga/webgl2/09_Shooting/index.html)
 
 TODO
 
